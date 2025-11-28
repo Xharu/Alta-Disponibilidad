@@ -1,72 +1,66 @@
-# 🛡️ Configuración de RAID 10 en Linux
+# 📌 Proyecto: **ALTA DISPONIBILIDAD – TOLERANTE A FALLAS**
 
-Este documento detalla el procedimiento paso a paso para configurar un arreglo **RAID 10** utilizando la herramienta `mdadm` en un entorno Linux (Ubuntu/Debian).
-
-## 📋 Requisitos Previos
-* Tener acceso de superusuario (`sudo`).
-* 4 discos disponibles (en este ejemplo: `sdb`, `sdc`, `sdd`, `sde`).
+### Materia: **Infraestructura, Plataformas Tecnológicas y Redes**  
+### Docente: **Quispe Ortega Lucio Marcelo**  
+### Integrantes:
+- **Mauricio Torrejon Miguel Ángel**  
+- **Elizabeth**  
+- **Cruz Trujillo Brayann**
 
 ---
 
-## 🚀 Pasos de Instalación
+## 🖥️ Descripción del Proyecto
 
-1. **Preparación del Sistema:**
+El proyecto **Alta Disponibilidad y Tolerancia a Fallos** tiene como objetivo implementar una arquitectura capaz de garantizar la continuidad del servicio incluso ante fallos inesperados.  
+Se busca asegurar que los sistemas permanezcan operativos, minimizando los tiempos de inactividad mediante tecnologías de redundancia, balanceo de carga y recuperación automática.
 
-    - Primero, actualizamos los repositorios e instalamos la utilidad necesaria para gestionar dispositivos RAID.
-    - Actualizamos las listas de paquetes:
-        ```bash
-        sudo apt update
-        ```
+---
 
-    - Instalamos la herramienta mdadm:
-        ```bash
-        sudo apt install mdadm -y
-        ```
+## 🎯 Objetivos
 
-2. **Creación del dispositivo RAID 10:**
+- Diseñar una infraestructura que mantenga los servicios activos ante fallos de hardware o software.  
+- Implementar técnicas de **redundancia**, **replicación** y **automatización**.  
+- Evaluar el rendimiento y comportamiento del sistema bajo diferentes escenarios de falla.  
+- Documentar la arquitectura y la solución final implementada.
 
-    - Creamos el dispositivo virtual `/dev/md0` utilizando los 4 discos físicos. El nivel 10 ofrece alta velocidad y redundancia.
-        ```bash
-        sudo mdadm --create --verbose /dev/md0 --level=10 --raid-devices=4 /dev/sdb /dev/sdc /dev/sdd /dev/sde
-        ```
+---
 
-3. **Persistencia de la configuración:**
+## 🛠️ Tecnologías utilizadas
 
-    - **Guardar la configuración:** Es crítico guardar la configuración en `mdadm.conf` y actualizar el `initramfs`. Si se omite este paso, el RAID podría perderse o cambiar de nombre al reiniciar.
-        ```bash
-        sudo mdadm --detail --scan | sudo tee -a /etc/mdadm/mdadm.conf
-        ```
+- Servidores Linux / Windows  
+- Balanceadores de carga  
+- Máquinas virtuales  
+- Redes y protocolos de comunicación  
+- **Apache2**  
+- **Keepalived**  
+- Scripts automatizados  
+- **Rsync**  
+- **Crontab**  
+- **Bind9** (DNS)  
+- **ISC DHCP Server**  
+- **SFTP**
 
-    - Actualizamos el entorno de inicio:
-        ```bash
-        sudo update-initramfs -u
-        ```
+---
 
-4. **Formateo y Montaje:**
+## 🧩 Arquitectura del Sistema
 
-    - Damos formato `ext4` al nuevo volumen:
-        ```bash
-        sudo mkfs.ext4 /dev/md0
-        ```
+La arquitectura implementada está compuesta por **6 servidores**, donde el servidor principal es el **Proxy**, el cual posee la prioridad más alta.  
+Este actúa como nodo central; en caso de que falle, los servidores sucesores —**Angel, Brayan y Eli**— entran en funcionamiento automáticamente gracias a **Keepalived**, manteniendo la página activa.
 
-    - Creamos el directorio de montaje:
-        ```bash
-        sudo mkdir -p /mnt/raid10
-        ```
+Todos los servicios se respaldan mediante *backups automáticos* programados a las **08:00, 12:00 y 22:00**.
 
-    - Montamos el volumen RAID en el directorio creado:
-        ```bash
-        sudo mount /dev/md0 /mnt/raid10
-        ```
+Además:
 
-5. **Verificación del Estado:**
+- Se cuenta con un servidor **DHCP–DNS** que gestiona la asignación de direcciones y resolución de nombres.  
+- Se utiliza **SFTP** para la modificación de archivos del sitio web, garantizando seguridad y evitando usos no autorizados.  
 
-    - Verificamos el espacio montado para asegurar que el sistema lo reconoce:
-        ```bash
-        df -h | grep md0
-        ```
+### 📸 Imagen de la arquitectura
 
-    - Vemos los detalles profundos del RAID (estado de los discos, sincronización, etc.):
-        ```bash
-        sudo mdadm --detail /dev/md0
-        ```
+<img width="1409" height="608" alt="image" src="https://github.com/user-attachments/assets/ddab418e-0173-4edb-abf3-71f45ff9706c" />
+
+---
+
+## 📄 Conclusiones
+
+El proyecto demostró la importancia de contar con infraestructuras diseñadas para resistir fallos y mantener la continuidad del servicio.  
+La alta disponibilidad es esencial en sistemas críticos, permitiendo reducir los tiempos de inactividad y mejorar la confiabilidad general del sistema.
