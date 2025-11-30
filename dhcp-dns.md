@@ -48,7 +48,7 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
 
     - Propósito:
         - `isc-dhcp-server`: asigna direcciones IP automáticamente.
-        - `bind9`: resuelve nombres internos como `angel.usfx.bo`, `www.keepalived.usfx.bo`, etc.
+        - `bind9`: resuelve nombres internos como `angel.usfx.edu`, `www.keepalived.usfx.edu`, etc.
 
 2. **Configuración del Servidor DHCP**
 
@@ -59,8 +59,8 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
 
     - Contenido de ejemplo:
         ```
-        option domain-name "usfx.bo";
-        option domain-name-servers 192.168.100.10;
+        option domain-name "usfx.edu";
+        option domain-name-servers 192.168.100.6;
 
         default-lease-time 86400;       # 24 horas
         max-lease-time 604800;          # 7 días
@@ -81,7 +81,7 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
         ```
 
     - Explicación breve:
-        - `option domain-name`: define el dominio local `usfx.bo`.
+        - `option domain-name`: define el dominio local `usfx.edu`.
         - `option domain-name-servers`: indica el DNS que usarán los clientes (`192.168.100.10`).
         - `authoritative`: este servidor es la autoridad de la subred.
         - `subnet`: define red, rangos de IP y puerta de enlace.
@@ -97,9 +97,9 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
 
     - Agregamos la zona:
         ```
-        zone "usfx.bo" {
+        zone "usfx.edu" {
             type master;
-            file "/etc/bind/db.usfx.bo";
+            file "/etc/bind/db.usfx.edu";
         };
         ```
 
@@ -111,25 +111,25 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
 
     - Creamos o editamos el archivo:
         ```
-        sudo nano /etc/bind/db.usfx.bo
+        sudo nano /etc/bind/db.usfx.edu
         ```
 
     - Contenido de ejemplo:
         ```
         $TTL    604800
-        @       IN      SOA     ns1.usfx.bo. root.usfx.bo. (
-                                  2         ; Serial
+        @       IN      SOA     ns1.usfx.edu. root.usfx.edu. (
+                          301120252         ; Serial
                              604800         ; Refresh
                               86400         ; Retry
                             2419200         ; Expire
                              604800 )       ; Negative Cache TTL
 
         ; Servidor de Nombres
-        @       IN      NS      ns1.usfx.bo.
-        @       IN      A       192.168.100.10
+        @       IN      NS      ns1.usfx.edu.
+        @       IN      A       192.168.100.6
 
         ; Definición del Host ns1
-        ns1     IN      A       192.168.100.10
+        ns1     IN      A       192.168.100.6
 
         ; --- IP Virtual para alta disponibilidad ---
         www.keepalived   IN  A   192.168.100.100
@@ -150,7 +150,7 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
         ```
 
     - Explicación breve:
-        - SOA/NS: definen el servidor de nombres principal (`ns1.usfx.bo`).
+        - SOA/NS: definen el servidor de nombres principal (`ns1.usfx.edu`).
         - Registros `A`: asignan cada nombre a una IP.
         - `www.keepalived` y `keepalived` apuntan a la **IP virtual 192.168.100.100**, usada por Keepalived para alta disponibilidad.
 
@@ -178,8 +178,8 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
 
     - Desde el servidor o un cliente, probamos consultas:
         ```
-        dig @192.168.100.10 angel.usfx.bo
-        dig @192.168.100.10 www.keepalived.usfx.bo
+        dig @192.168.100.6 angel.usfx.bo
+        dig @192.168.100.6 www.keepalived.usfx.bo
         ```
 
     - Esperado:
@@ -197,7 +197,7 @@ Este documento detalla el procedimiento paso a paso para configurar un servidor 
     - Debe recibir una IP dentro de los rangos:
         - `192.168.100.11–99` o `192.168.100.101–254`
         - Gateway: `192.168.100.1`
-        - DNS: `192.168.100.10`
+        - DNS: `192.168.100.6`
 
 ---
 
