@@ -1,4 +1,4 @@
-# 📌 Proyecto: **ALTA DISPONIBILIDAD – TOLERANTE A FALLAS**
+# 📌 Proyecto: **ALTA DISPONIBILIDAD – TOLERANTE A FALLAS y Automatizado**
 
 ### Materia: **Infraestructura, Plataformas Tecnológicas y Redes**  
 ### Docente: **Quispe Ortega Lucio Marcelo**  
