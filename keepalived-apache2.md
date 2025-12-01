@@ -53,7 +53,7 @@ Este documento detalla paso a paso la configuración de un clúster **tolerante 
         vrrp_script check_apache {
             script "/etc/keepalived/check_apache.sh"
             interval 2
-            weight -30
+            weight -35
         }
 
         vrrp_instance VI_1 {
