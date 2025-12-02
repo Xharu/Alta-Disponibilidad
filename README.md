@@ -4,7 +4,7 @@
 ### Docente: **Quispe Ortega Lucio Marcelo**  
 ### Integrantes:
 - **Mauricio Torrejon Miguel Ángel**  
-- **Elizabeth**  
+- **Chungara Choque Elizabeth**  
 - **Cruz Trujillo Brayann**
 
 ---
