@@ -232,6 +232,6 @@ Pasos típicos para demostrar tolerancia a fallos:
   - **Tolerante a fallos**,  
   - Alineada con los principios de **alta disponibilidad**.
 
-Este documento consolida la documentación técnica principal del **Proyecto RACCOON** y sirve como referencia para despliegue, operación y demostración académica.
+Este documento consolida la documentación de nuestro proyecto Final de la materia SIS313, llamado **RACCOONSYNC** y servira como referencia para despliegue, operación y demostración académica.
 
 ---
