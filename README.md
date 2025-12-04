@@ -136,7 +136,7 @@ Se utiliza el protocolo **VRRP** mediante Keepalived para garantizar la **dispon
   - Sincroniza las carpetas `public_html` de todos los nodos hacia:  
     - `/home/angel/backups/<servidor>/<fecha>/`  
   - Mantiene respaldos ordenados por fecha y nombre del servidor.
- [backup-cron-Rsync](./Backup%Cron+Rsync.md)
+ [backup-cron-Rsync](./Backup-Cron+Rsync.md)
 
 ### 4.2 Control por Voz (Vosk)
 
