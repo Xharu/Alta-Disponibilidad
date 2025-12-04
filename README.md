@@ -80,7 +80,7 @@ Servidor dedicado a la **gestión de direcciones IP** y **resolución de nombres
   - `www.keepalived` y `keepalived` apuntan a la IP Virtual `192.168.100.100`.  
 - **Gestión Visual (Glass):**
   - Se instala **Glass**, interfaz web basada en NodeJS para administrar visualmente leases y subredes DHCP en el puerto `3000`.
-
+[DHCP-DNS](./dhcp-dns.md)
 ---
 
 ## 🛡️ Módulo 2: Servidores Web Seguros (Apache + HTTPS)
@@ -94,6 +94,7 @@ Cada servidor del clúster ejecuta **Apache2** y se aisla su contenido y acceso.
 - Esta estructura facilita:
   - Gestión mediante usuario **enjaulado (Chroot)**.
   - Separación clara de contenidos entre nodos.
+  [VirtualHost-DocumentRoot](./DocumentRoot-VirtualHost.md)
 
 ### 2.2 Seguridad SSL/TLS
 
@@ -103,7 +104,7 @@ Cada servidor del clúster ejecuta **Apache2** y se aisla su contenido y acceso.
   - `SSLEngine on`  
   - `SSLCertificateFile` (.crt)  
   - `SSLCertificateKeyFile` (.key)  
-
+[SSL-TLS](./certificados%SSL%autofirmados-%redireccion.md)
 ---
 
 ## 🔄 Módulo 3: Alta Disponibilidad (Keepalived)
@@ -119,7 +120,7 @@ Se utiliza el protocolo **VRRP** mediante Keepalived para garantizar la **dispon
   - Keepalived ejecuta cada 2 segundos un script que verifica:
     - `systemctl status apache2`.  
   - Si el script detecta fallo, se aplica un **peso negativo** (por ejemplo `weight -35`), provocando la conmutación del VIP a un nodo sano.
-
+[Keepalived](./keepalived-apache2.md)
 ---
 
 ## 🛠️ Módulo 4: Automatización y Gestión
@@ -135,6 +136,7 @@ Se utiliza el protocolo **VRRP** mediante Keepalived para garantizar la **dispon
   - Sincroniza las carpetas `public_html` de todos los nodos hacia:  
     - `/home/angel/backups/<servidor>/<fecha>/`  
   - Mantiene respaldos ordenados por fecha y nombre del servidor.
+ [backup-cron-Rsync](./Backup%Cron+Rsync.md)
 
 ### 4.2 Control por Voz (Vosk)
 
@@ -147,13 +149,15 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
   - Luego escucha comandos como:
     - “enciende apache”  
     - “apaga apache”  
-  - Ejecuta `systemctl start/stop apache2` mediante `subprocess` y reglas en `sudoers` (sin solicitar contraseña).  
+  - Ejecuta `systemctl start/stop apache2` mediante `subprocess` y reglas en `sudoers` (sin solicitar contraseña).
+ [vosk](./Automatizacion-Vosk.md)
 
 ### 4.3 Gestión SFTP Segura (Chroot)
 
 - Usuario dedicado: `superwebmaster`.  
 - El usuario está **enjaulado** en: `/srv/ftp/websites/rootwebservers`.  
 - Sin acceso a shell interactiva (`nologin`), solo **SFTP** para subir/editar contenido web.
+ [sftp-chroot-user](./user-chroot-SFTP.md)
 
 ### 4.4 Script de Administración (`apache.sh`)
 
@@ -165,7 +169,7 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
   - Ver logs en tiempo real.  
   - Verificar configuración (`apache2ctl -t`).  
 - Facilita las **pruebas de caída y recuperación** durante la demostración.
-
+[script apache](./script%apache.md)
 ---
 
 ## 📊 Módulo 5: Monitoreo (Uptime Kuma)
@@ -178,7 +182,7 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
 - Función:
   - Monitorea el estado **HTTP/HTTPS** de los 4 servidores web.  
   - Supervisa la **disponibilidad de la IP Virtual `192.168.100.100`**.  
-
+ [monitorizacion Kuma](./monitorizacion%Kuma.md)
 ---
 ## 🪟 Módulo 6: Monitoreo (Glass)
 
@@ -188,10 +192,9 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
 - Configuración:  
   - Puerto: 3000.  
   - Ejecución persistente mediante servicio systemd y gestor de procesos Forever.  
-  - Vinculado directamente al archivo de configuración `/etc/dhcp/dhcpd.conf`.  
-
+  - Vinculado directamente al archivo de configuración `/etc/dhcp/dhcpd.conf`.
 Función: Visualización en tiempo real de leases activos, gestión de reservas/subredes y administración gráfica del servidor ISC DHCP.
-
+[monitorizacion glass](./monitorizacion%20glass.md)
 ---
 ## 🧪 Pruebas de Funcionamiento
 
