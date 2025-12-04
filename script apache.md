@@ -107,6 +107,7 @@ El script `apache.sh` permite:
 ---
 
 ## 🧪 Uso del Script en Pruebas de Alta Disponibilidad (HA)
+<img width="546" height="357" alt="image" src="https://github.com/user-attachments/assets/26daea81-2054-4910-89ed-8a14d1d481ab" />
 
 - **Detener Apache en el MASTER para simular caída:**
     - Ejecutar el script y elegir:
