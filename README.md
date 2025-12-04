@@ -104,7 +104,7 @@ Cada servidor del clúster ejecuta **Apache2** y se aisla su contenido y acceso.
   - `SSLEngine on`  
   - `SSLCertificateFile` (.crt)  
   - `SSLCertificateKeyFile` (.key)  
-[SSL-TLS](./certificados%SSL%autofirmados-%redireccion.md)
+[SSL-TLS](./certificados-SSL-autofirmados-redireccion.md)
 ---
 
 ## 🔄 Módulo 3: Alta Disponibilidad (Keepalived)
