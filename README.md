@@ -169,7 +169,7 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
   - Ver logs en tiempo real.  
   - Verificar configuración (`apache2ctl -t`).  
 - Facilita las **pruebas de caída y recuperación** durante la demostración.
-[script apache](./script%apache.md)
+[script apache](./script%20apache.md)
 ---
 
 ## 📊 Módulo 5: Monitoreo (Uptime Kuma)
@@ -182,7 +182,7 @@ Sistema innovador para controlar **Apache** mediante comandos de voz en el servi
 - Función:
   - Monitorea el estado **HTTP/HTTPS** de los 4 servidores web.  
   - Supervisa la **disponibilidad de la IP Virtual `192.168.100.100`**.  
- [monitorizacion Kuma](./monitorizacion%Kuma.md)
+ [monitorizacion Kuma](./monitorizacion%20Kuma.md)
 ---
 ## 🪟 Módulo 6: Monitoreo (Glass)
 
